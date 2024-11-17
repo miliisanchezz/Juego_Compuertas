@@ -72,12 +72,12 @@
         }
 
         .estado-abierto {
-            color: #440800; /* Verde suave */
+            color: #00471e; /* Verde suave */
             font-weight: bold;
         }
 
         .estado-cerrado {
-            color: #00471e; /* Rosa pastel */
+            color: #440800;  /* Rosa pastel */
             font-weight: bold;
         }
 
@@ -154,7 +154,7 @@
 
         <!-- Indicador de Nivel -->
         <div id="nivel">Nivel 1</div>
-        <div id="descripcion">Resuelve usando una compuerta AND.</div>
+        <div id="descripcion">Resuelve usando una compuerta AND. Recuerda que: La puerta se abre solo cuando ambos interruptores están activados (ON).</div>
 
         <!-- Interruptores -->
         <label>
@@ -230,19 +230,19 @@
                 
                 switch (nivelActual) {
                     case 2:
-                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta OR.";
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta OR. Recuerda que: La puerta se abre si al menos uno de los interruptores está activado." ;
                         break;
                     case 3:
-                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NOT.";
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NOT. Recuerda que: La puerta se abre si el interruptor está apagado (OFF), ya que la compuerta NOT invierte la señal.";
                         break;
                     case 4:
-                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NAND.";
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NAND. Recuerda que: La puerta se abre si al menos uno de los interruptores está apagado.";
                         break;
                     case 5:
-                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NOR.";
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NOR. Recuerda que: La puerta se abre solo si todos los interruptores están apagados.";
                         break;
                     case 6:
-                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta XOR.";
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta XOR. Recuerda que: La puerta se abre solo si uno de los interruptores está activado, pero no ambos.";
                         break;
                 }
 
