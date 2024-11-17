@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Compuertas Lógicas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe1d9; /* Rosa claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #debcb4; /* Beige claro */
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 50px;
+            color: #7c4c46; /* Marrón cálido */
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        #nivel {
+            font-size: 28px;
+            color: #9d716b; /* Marrón suave */
+            margin-top: 20px;
+            animation: fadeInText 1s ease-in-out;
+        }
+
+        #descripcion {
+            font-size: 20px;
+            color: #bd968f; /* Beige suave */
+            margin-top: 10px;
+            animation: fadeInText 1.5s ease-in-out;
+        }
+
+        label {
+            font-size: 18px;
+            margin-top: 20px;
+            display: block;
+            color: #9d716b; /* Marrón suave */
+            animation: fadeInText 2s ease-in-out;
+        }
+
+        button {
+            background-color: #7c4c46; /* Marrón cálido */
+            color: white;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+            animation: fadeInButton 2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #9d716b; /* Marrón suave */
+        }
+
+        .estado-abierto {
+            color: #5fffa9; /* Verde suave */
+            font-weight: bold;
+        }
+
+        .estado-cerrado {
+            color: #f5a3c7; /* Rosa pastel */
+            font-weight: bold;
+        }
+
+        #continuar {
+            display: none;
+            background-color: #ffe1d9; /* Rosa claro */
+            color: #7c4c46; /* Marrón cálido */
+            font-size: 18px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #continuar:hover {
+            background-color: #ffd1d1; /* Rosa suave */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInButton {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Juego de Compuertas Lógicas</h1>
+
+        <!-- Indicador de Nivel -->
+        <div id="nivel">Nivel 1</div>
+        <div id="descripcion">Resuelve usando una compuerta AND.</div>
+
+        <!-- Interruptores -->
+        <label>
+            <input type="checkbox" id="A"> Entrada A
+        </label>
+        <label>
+            <input type="checkbox" id="B"> Entrada B
+        </label>
+
+        <!-- Botón para verificar -->
+        <button onclick="verificarCompuerta()">Verificar</button>
+        <p id="resultado" class="estado-cerrado">Puerta Cerrada.</p>
+
+        <!-- Botón continuar -->
+        <button id="continuar" onclick="siguienteNivel()">Continuar</button>
+    </div>
+
+    <script>
+        let nivelActual = 1;
+
+        function verificarCompuerta() {
+            let A = document.getElementById("A").checked;
+            let B = document.getElementById("B").checked;
+            let resultado = false;
+
+            switch (nivelActual) {
+                case 1: // Compuerta AND
+                    resultado = A && B;
+                    break;
+                case 2: // Compuerta OR
+                    resultado = A || B;
+                    break;
+                case 3: // Compuerta NOT (verifica solo A)
+                    resultado = !A;
+                    break;
+                case 4: // Compuerta NAND
+                    resultado = !(A && B);
+                    break;
+                case 5: // Compuerta NOR
+                    resultado = !(A || B);
+                    break;
+                case 6: // Compuerta XOR
+                    resultado = A !== B;
+                    break;
+            }
+
+            let resultadoElemento = document.getElementById("resultado");
+            let continuarBoton = document.getElementById("continuar");
+
+            if (resultado) {
+                resultadoElemento.innerText = "¡Puerta Abierta!";
+                resultadoElemento.classList.remove("estado-cerrado");
+                resultadoElemento.classList.add("estado-abierto");
+                continuarBoton.style.display = "inline-block"; // Mostrar el botón "Continuar"
+            } else {
+                resultadoElemento.innerText = "Puerta Cerrada.";
+                resultadoElemento.classList.remove("estado-abierto");
+                resultadoElemento.classList.add("estado-cerrado");
+                continuarBoton.style.display = "none"; // Ocultar el botón "Continuar"
+            }
+        }
+
+        function siguienteNivel() {
+            if (nivelActual < 6) {
+                nivelActual++;
+                document.getElementById("A").checked = false;
+                document.getElementById("B").checked = false;
+                document.getElementById("resultado").innerText = "Puerta Cerrada.";
+                document.getElementById("continuar").style.display = "none";
+                
+                // Actualizar el nivel y la descripción
+                document.getElementById("nivel").innerText = `Nivel ${nivelActual}`;
+                
+                switch (nivelActual) {
+                    case 2:
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta OR.";
+                        break;
+                    case 3:
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NOT.";
+                        break;
+                    case 4:
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NAND.";
+                        break;
+                    case 5:
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta NOR.";
+                        break;
+                    case 6:
+                        document.getElementById("descripcion").innerText = "Resuelve usando una compuerta XOR.";
+                        break;
+                }
+
+                alert(`¡Felicidades! Has avanzado al Nivel ${nivelActual}.`);
+            } else {
+                // Cuando el jugador termina todos los niveles, redirigir a la página de felicitaciones
+                window.location.href = "felicitaciones.html"; // Redirección a la nueva página
+            }
+        }
+    </script>
+</body>
+</html>
